@@ -3,6 +3,7 @@ import { Route, Switch } from "react-router-dom";
 
 import { Logitn } from "../components/pages/Login";
 import { homeRoutes } from "./HomeRoutes";
+import { Page404 } from "../components/pages/Page404";
 
 export const Router: VFC = memo(() => {
   return (
@@ -18,7 +19,7 @@ export const Router: VFC = memo(() => {
               <Route
                 key={route.path}
                 exact={route.exact}
-                path={`${url}4{route.path}`}
+                path={`${url}${route.path}`}
               >
                 {route.children}
               </Route>
@@ -26,6 +27,9 @@ export const Router: VFC = memo(() => {
           </Switch>
         )}
       />
+      <Route path="*">
+        <Page404 />
+      </Route>
     </Switch>
   );
 });
