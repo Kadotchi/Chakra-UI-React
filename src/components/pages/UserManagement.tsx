@@ -25,6 +25,7 @@ export const UserManegement: VFC = memo(() => {
 
   return (
     <>
+      {/* 三項演算子 */}
       {loading ? (
         <Center h="100vh">
           <Spinner />
