@@ -16,7 +16,10 @@ export const UserManegement: VFC = memo(() => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { getUsers, loading, users } = useAllUsers();
 
-  const onClickUser = useCallback(() => onOpen(), []);
+  const onClickUser = useCallback((id: number) => {
+    console.log(id);
+    onOpen();
+  }, []);
 
   //レンダー後に何かの処理をしないといけない、ということを React に伝える
   useEffect(() => getUsers(), []);
@@ -33,6 +36,7 @@ export const UserManegement: VFC = memo(() => {
           {users.map((user) => (
             <WrapItem key={user.id}>
               <UserCard
+                id={user.id}
                 imageUrl="https://source.unsplash.com/random"
                 userName={user.username}
                 fullName={user.name}
