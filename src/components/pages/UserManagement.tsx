@@ -11,15 +11,22 @@ import { memo, useCallback, useEffect, VFC } from "react";
 import { UserCard } from "../organisms/user/UserCard";
 import { useAllUsers } from "../../hooks/useAllUsers";
 import { UserDetailModal } from "../organisms/user/UserDetailModal";
+import { useSelectUser } from "../../hooks/useSelectUser";
 
 export const UserManegement: VFC = memo(() => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { getUsers, loading, users } = useAllUsers();
+  const { onSelectUser, selectedUser } = useSelectUser();
 
-  const onClickUser = useCallback((id: number) => {
-    console.log(id);
-    onOpen();
-  }, []);
+  console.log(selectedUser);
+
+  const onClickUser = useCallback(
+    (id: number) => {
+      onSelectUser({ id, users, onOpen });
+      onOpen();
+    },
+    [users]
+  );
 
   //レンダー後に何かの処理をしないといけない、ということを React に伝える
   useEffect(() => getUsers(), []);
@@ -46,7 +53,7 @@ export const UserManegement: VFC = memo(() => {
           ))}
         </Wrap>
       )}
-      <UserDetailModal isOpen={isOpen} onClose={onClose} />
+      <UserDetailModal isOpen={isOpen} onClose={onClose} user={selectedUser} />
     </>
   );
 });
