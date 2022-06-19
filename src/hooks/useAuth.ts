@@ -20,7 +20,10 @@ export const useAuth = () => {
         .get<User>(`https://jsonplaceholder.typicode.com/users/${id}`)
         .then((res) => {
           if (res.data) {
-            setLoginUser(res.data);
+            // ログインユーザーのIDが10だったら管理者権限を寄付
+            const isAdmin = res.data.id === 10 ? true : false;
+            // 一度、res.dataを展開してから、管理者権限を追加する
+            setLoginUser({ ...res.data, isAdmin });
             showMessage({ title: "ログインしました", status: "success" });
             history.push("./home");
           } else {
