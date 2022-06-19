@@ -8,21 +8,21 @@ import {
 
 import { User } from "../types/api/user";
 
-type LoguinUserContextType = {
+export type LoginUserContextType = {
   loginUser: User | null;
-  setLoguinUser: Dispatch<SetStateAction<User | null>>;
+  setLoginUser: Dispatch<SetStateAction<User | null>>;
 };
 
-const LoguinUserContext = createContext<LoguinUserContextType>(
-  {} as LoguinUserContextType
+export const LoginUserContext = createContext<LoginUserContextType>(
+  {} as LoginUserContextType
 );
 
 export const LoguinUserProvider = (props: { children: ReactNode }) => {
   const { children } = props;
-  const [loginUser, setLoguinUser] = useState<User | null>(null);
+  const [loginUser, setLoginUser] = useState<User | null>(null);
   return (
-    <LoguinUserContext.Provider value={{ loginUser, setLoguinUser }}>
+    <LoginUserContext.Provider value={{ loginUser, setLoginUser }}>
       {children}
-    </LoguinUserContext.Provider>
+    </LoginUserContext.Provider>
   );
 };
